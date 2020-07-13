@@ -1,0 +1,14 @@
+<p>Contact List</p>
+<mat-divider></mat-divider>
+<mat-nav-list>
+    <a mat-list-item *ngFor="let contact of list" (click)="getUserChat(contact)">
+        <h2 matLine>{{ contact.firstname }} ({{contact?.username}})</h2>
+        <!-- <div class="user-dp"><img src="assets/images/coder-logo_1.jpg" alt=""></div> -->
+        <mat-divider></mat-divider>
+    </a>
+</mat-nav-list>
+<div class="footer-list">
+    <a mat-list-item href="https://coderman-401.web.app/">
+        Visit: Here
+    </a>
+</div>

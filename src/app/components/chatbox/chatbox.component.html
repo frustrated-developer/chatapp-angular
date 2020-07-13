@@ -1,0 +1,31 @@
+<div #chatWrapper class="chat-wrapper" (scroll)="scrollEvent($event)">
+    <div class="chat-list">
+        <div class="message-wrapper"*ngFor="let chat of messages">
+            <p class="date"><mat-card>{{ chat?.date }}</mat-card></p>
+            <div class="chat-outer" [ngClass]="{ 'self': (item?.senderId === currentUser?.username) }" *ngFor="let item of chat.data">
+                <div class="chat-item">
+                    <!-- <span class="tail-out"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 13" width="8" height="13"><path opacity=".13" d="M5.188 1H0v11.193l6.467-8.625C7.526 2.156 6.958 1 5.188 1z"></path><path fill="currentColor" d="M5.188 0H0v11.193l6.467-8.625C7.526 1.156 6.958 0 5.188 0z"></path></svg></span> -->
+                    <div class="chat-text" [style]="item.content ? 'padding-bottom: 0;': ''">
+                        <div class="text-message">{{ item?.content}} <div class="chat-time">{{ item?.timestamp | dateFormat: 'hh:mm A' }}</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="new-screen" *ngIf="!isFooter" >
+        <mat-card class="card-abt">
+            <img src="./assets/images/coder-logo_1.jpg" alt="" class="img-fluid rounded-circle img-thumbnail shadow-sm">
+            <p style="margin: 0.5rem;">Developed By:</p>
+            <h3>Kishan Panchal</h3>
+            <mat-list class="social mb-0 list-inline">
+                <a (click)="redirectTo('https://instagram.com/frustrated_developer/')" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a (click)="redirectTo('https://twitter.com/kishan_2424')" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a (click)="redirectTo('https://github.com/frustrated-developer/')" class="social-link"><i class="fab fa-github"></i></a>
+                <a (click)="redirectTo('https://www.linkedin.com/in/kishan-panchal-859417162/')" class="social-link"><i class="fab fa-linkedin"></i></a>
+            </mat-list>
+        </mat-card>
+    </div>
+    <button *ngIf="showFab"  (click)="scrollToBottom()" class="fab-down" mat-mini-fab color="light" aria-label="Example icon button with a menu icon">
+        <mat-icon>keyboard_arrow_down</mat-icon>
+    </button>
+</div>

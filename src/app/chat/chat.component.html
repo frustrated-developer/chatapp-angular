@@ -1,0 +1,8 @@
+<div class="main" fxLayout="row" fxFill>
+    <app-contact-list fxFlex="30%" [list]="contactList" (clickUser)="getUserChat($event)"></app-contact-list>
+    <div class="wrap-chat" fxLayout="column" fxFill [ngClass]="{ 'container': isFooter }" fxFlex="70%">
+        <app-chat-header class="header" [isFooter]="isFooter" [reciever]="reciever"></app-chat-header>
+        <app-chatbox fxFlex="100%" [isFooter]="isFooter" [chatId]="chatId" [reciever]="reciever" [messages]="finalChat"></app-chatbox>
+        <app-chat-footer *ngIf="isFooter" (send)="sendMessage($event)" ></app-chat-footer>
+    </div>
+</div>

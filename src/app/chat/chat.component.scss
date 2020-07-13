@@ -1,0 +1,19 @@
+.header {
+    box-shadow: 0rem 0.1875rem 0.3125rem -0.0625rem rgba(0, 0, 0, 0.2),
+    0rem 0.675rem 0.625rem 0rem rgba(0, 0, 0, 0.14),
+    0rem 0.0625rem 1.125rem 0rem rgba(0, 0, 0, 0.14);
+    z-index: 99;
+}
+
+// .container {
+//     height: calc(100vh - 64px);
+// }
+.wrap-chat {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-height: 100vh;
+    app-chatbox {
+        overflow: hidden;
+    }
+}

@@ -1,0 +1,36 @@
+.footer {
+    padding: 1rem;
+    background-color: #dedede;
+    height: auto;
+    z-index: 999;
+    .form-group {
+        .form-field {
+            width: 100%;
+            padding: 1rem 0.5rem;
+            background-color: #fff;
+            border-radius: 2rem;
+            max-height: 6rem;
+            height: auto;
+            overflow: auto;
+            .message-container {
+                overflow: auto;
+                height: 1.125rem;
+                max-height: 4rem;
+                resize: none;
+                width: 100%;
+                border: 0;
+                border-radius: 0;
+                background: transparent;
+                padding: 0 1rem;
+                &:focus {
+                    outline: none;
+                    border: 0;
+                    box-shadow: none;
+                }
+            }
+        }
+        button {
+            border: 0;
+        }
+    }
+}

@@ -1,0 +1,42 @@
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .login-card {
+        min-width: 30rem;
+        max-width: 35rem;
+        @media screen and (max-width: 35rem) {
+            min-width: 18rem;
+            max-width: 20rem;
+        }
+        mat-form-field,
+        button {
+            width: 100%;
+        }
+        .header-logo {
+            margin: 1rem;
+            margin-top: 0;
+            text-align: center;
+            img {
+                margin-bottom: 1rem;
+                max-width: 10rem;
+                max-height: 10rem;
+            }
+        }
+        mat-card-actions {
+            text-align: center;
+            p {
+                color: #424242;
+                span {
+                    color: #242424;
+                    font-weight: bold;
+                    cursor: pointer;
+                }
+            }
+        }
+
+    }
+}

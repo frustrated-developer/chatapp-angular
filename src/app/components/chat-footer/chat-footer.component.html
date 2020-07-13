@@ -1,0 +1,9 @@
+<div class="footer">
+    <div class="form-group" fxLayoutAlign="space-between center"  fxLayout="row" fxFill>
+        <div class="form-field">
+            <textarea fxFlex="100%" #textBox class="message-container" placeholder="Type message..." (keyup)="resize()" (keyup.enter)="sendMessage()" [(ngModel)]="message" ></textarea>
+        </div>
+        <button mat-stroked-button color="primary" (click)="sendMessage()"><mat-icon>send</mat-icon></button>
+    </div>
+</div>
+
