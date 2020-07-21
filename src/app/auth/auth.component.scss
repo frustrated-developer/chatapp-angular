@@ -39,4 +39,12 @@
         }
 
     }
+
+    @media screen and (max-height: 468px) {
+        .header-logo {
+            img {
+                display: none;
+            }
+        }
+    }
 }

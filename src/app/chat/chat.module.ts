@@ -1,16 +1,20 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
+// modules
 import { ChatRoutingModule } from './chat-routing.module';
-import { ChatComponent } from './chat.component';
-import { ContactListComponent } from '../components/contact-list/contact-list.component';
-import { ChatboxComponent } from '../components/chatbox/chatbox.component';
-import { MaterialModule } from '../shared/material.module';
-import { DateFormatPipe } from '../services/date-format.pipe';
+import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ChatHeaderComponent } from '../components/chat-header/chat-header.component';
-import { ChatFooterComponent } from '../components/chat-footer/chat-footer.component';
+import { MaterialModule } from '../shared/material.module';
+import { NgModule } from '@angular/core';
+
+// components
+import { ChatboxComponent } from './components/chatbox/chatbox.component';
+import { ChatComponent } from './chat.component';
+import { ChatFooterComponent } from './components/chat-footer/chat-footer.component';
+import { ChatHeaderComponent } from './components/chat-header/chat-header.component';
+import { ContactListComponent } from './components/contact-list/contact-list.component';
+
+// services
+import { DateFormatPipe } from '../shared/services/date-format.pipe';
 
 
 @NgModule({

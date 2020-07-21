@@ -1,36 +1,37 @@
-import { AngularFireDatabase } from 'angularfire2/database';
+import { Router } from '@angular/router';
+import { AngularFirestore } from 'angularfire2/firestore';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
-import * as fierbase from 'firebase';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 
 @Injectable({
     providedIn: 'root'
 })
+
 export class AuthService {
 
-    constructor(private db: AngularFireDatabase) {
+    constructor(
+        private afs: AngularFirestore,
+        private localStorageService: LocalStorageService,
+        private router: Router
+        ) {
     }
 
 
     login(data: any) {
-        const username = data.username;
-        return this.db.list('users').valueChanges().pipe(map(actions => {
-            return actions.map((action: any) => {
-                if (action.username === username) {
-                    data.status = true;
-                    data.data = action;
-                }
-                return data;
-            });
-        }));
+        return this.afs.collection('users', ref => ref.where('username', '==', data.username)).get();
     }
 
     public singup(data: any) {
-        return this.db.list('users', ref => ref.orderByChild('username').equalTo(data.username)).query.once('value');
+        return this.afs.collection('users', ref => ref.where('username', '==', data.username)).get();
     }
 
     insertUser(data: any) {
-        return this.db.list('users').push(data);
+        return this.afs.collection('users').add({...data});
+    }
+
+    logout() {
+        this.localStorageService.clearAll();
+        this.router.navigate(['auth']);
     }
 
 }

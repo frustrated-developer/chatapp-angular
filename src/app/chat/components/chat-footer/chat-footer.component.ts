@@ -21,11 +21,16 @@ export class ChatFooterComponent implements OnInit {
             this.send.emit(this.message.trim());
         }
         this.message = '';
+        this.resize(true);
     }
 
 
-    resize() {
-        this.textBox.nativeElement.style.height = '18px';
-        this.textBox.nativeElement.style.height = this.textBox.nativeElement.scrollHeight + 'px';
+    resize(reset = false) {
+        if (reset) {
+            this.textBox.nativeElement.style.height = '18px';
+        } else {
+            this.textBox.nativeElement.style.height = '18px';
+            this.textBox.nativeElement.style.height = this.textBox.nativeElement.scrollHeight + 'px';
+        }
     }
 }

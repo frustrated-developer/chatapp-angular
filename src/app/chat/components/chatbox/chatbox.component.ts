@@ -1,13 +1,12 @@
-import { LocalStorageService } from './../../services/local-storage.service';
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, OnChanges, AfterViewInit } from '@angular/core';
-import * as firebase from 'firebase';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, OnChanges } from '@angular/core';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 
 @Component({
     selector: 'app-chatbox',
     templateUrl: './chatbox.component.html',
     styleUrls: ['./chatbox.component.scss']
 })
-export class ChatboxComponent implements OnInit, OnChanges, AfterViewInit {
+export class ChatboxComponent implements OnInit, OnChanges {
 
     @Input() messages: any;
     @Input() chatId: any;
@@ -33,20 +32,13 @@ export class ChatboxComponent implements OnInit, OnChanges, AfterViewInit {
         }, 100);
     }
 
-    ngAfterViewInit() {
-    }
-
-    scrollChat(event) {
-        // console.log(event);
-    }
-
     redirectTo(url) {
         window.open(url, '_blank');
     }
 
     scrollEvent(event) {
-        let scrollTop = this.chatWrapper.nativeElement.scrollTop;
-        if (this.scrollPosition - scrollTop > 150) {
+        const scrollTop = this.chatWrapper.nativeElement.scrollTop;
+        if (this.scrollPosition - scrollTop > 50) {
             this.showFab = true;
         } else {
             this.showFab = false;

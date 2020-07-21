@@ -1,0 +1,52 @@
+.user-dp {
+    flex-shrink: 0;
+    box-sizing: content-box;
+    padding: 4px;
+    margin-right: 0.5rem;
+    img {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        vertical-align: middle;
+    }
+}
+.footer-list {
+    position: fixed;
+    bottom: 0;
+    width: auto;
+}
+
+.mat-list-item {
+    cursor: pointer;
+}
+
+:host ::ng-deep{
+    // .mat-list-item-content {
+    //     flex-direction: row-reverse !important;
+    // }
+}
+
+p {
+    margin: 0;
+    text-align: center;
+    padding: 0.8rem;
+}
+.image-container {
+    position: relative;
+    .circle {
+        position: absolute;
+        top: 1.25rem;
+        left: 1.625rem;
+        &.on:before {
+            content: '\25CF';
+            font-size: 20px;
+            color: #1bdb72;
+        }
+        &.off:before {
+            content: '\25CF';
+            font-size: 20px;
+            color: #bbbebe;
+        }
+    }
+}
+

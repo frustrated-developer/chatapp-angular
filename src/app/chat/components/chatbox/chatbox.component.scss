@@ -21,51 +21,51 @@
     display: flex;
     position: relative;
     margin-bottom: 1rem;
+    .tail-out {
+        position: absolute;
+        top: -1px;
+        right: auto;
+        left: -0.5rem;
+        z-index: 100;
+        transform: scaleX(-1);
+        color: #fff;
+    }
     &.self {
         justify-content: flex-end;
+        .tail-out {
+            left: auto;
+            right: -0.5rem;
+            top: -1px;
+            transform: scaleX(1);
+            color: #dcf8c6;
+        }
         .chat-item {
             max-width: calc(100% - 3.75rem);
-            // .tail-out {
-                //     left: auto;
-                //     right: -0.5rem;
-                //     top: -1px;
-                //     transform: scaleX(1);
-                //     color: #dcf8c6;
-                // }
-            }
-            .chat-text {
-                background: #dcf8c6;
-            }
         }
-        .user-dp {
-            min-width: 2rem;
-            margin-right: 0.5rem;
-            img {
-                height: 2rem;
-                width: 2rem;
-                object-fit: cover;
-                border-radius: 50%;
-            }
+        .chat-text {
+            background: #dcf8c6;
+            border-top-right-radius: 0;
         }
-        .chat-item {
-            max-width: calc(100% - 5rem);
-            position: relative;
-            // .tail-out {
-                //     position: absolute;
-                //     top: -2px;
-                //     right: auto;
-                //     left: -0.5rem;
-                //     z-index: 100;
-                //     transform: scaleX(-1);
-                //     color: #fff;
-                // }
-            }
-            .chat-text {
-                border-radius: 0.25rem;
-                background: #fff;
-                padding: 0.25rem;
-                color: #000;
-            min-width: 6.25rem;
+    }
+    .user-dp {
+        min-width: 2rem;
+        margin-right: 0.5rem;
+        img {
+            height: 2rem;
+            width: 2rem;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+    }
+    .chat-item {
+        max-width: calc(100% - 3.75rem);
+    }
+    .chat-text {
+        border-radius: 0.25rem;
+        border-top-left-radius: 0;
+        background: #fff;
+        padding: 0.25rem;
+        color: #000;
         .media-message {
             z-index: 9999;
             width: 9.5rem;
@@ -87,13 +87,20 @@
         }
         .text-message {
             white-space: pre-line;
-            padding: 0.25rem;
+            overflow-wrap: anywhere;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 0 0.25rem;
             line-height: 1.5;
             .chat-time {
                 color: #121212;
                 font-size: 0.625rem;
                 text-align: right;
-                padding-top: 0.25rem;
+                align-self: flex-end;
+                flex-grow: 1;
+                margin-left: 1rem;
             }
         }
     }
@@ -151,7 +158,9 @@
 
 .fab-down {
     position: fixed;
+    z-index: 999;
     right: 1rem;
     top: auto;
     bottom: 6rem;
+    transition: all 0.4s;
 }

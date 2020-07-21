@@ -2,11 +2,14 @@
     <div class="chat-list">
         <div class="message-wrapper"*ngFor="let chat of messages">
             <p class="date"><mat-card>{{ chat?.date }}</mat-card></p>
-            <div class="chat-outer" [ngClass]="{ 'self': (item?.senderId === currentUser?.username) }" *ngFor="let item of chat.data">
+            <div class="chat-outer" [ngClass]="{ 'self': (item?.senderId === currentUser?.docId) }" *ngFor="let item of chat.data">
+                <span class="tail-out"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 13" width="8" height="13"><path opacity=".13" d="M5.188 1H0v11.193l6.467-8.625C7.526 2.156 6.958 1 5.188 1z"></path><path fill="currentColor" d="M5.188 0H0v11.193l6.467-8.625C7.526 1.156 6.958 0 5.188 0z"></path></svg></span>
                 <div class="chat-item">
-                    <!-- <span class="tail-out"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 13" width="8" height="13"><path opacity=".13" d="M5.188 1H0v11.193l6.467-8.625C7.526 2.156 6.958 1 5.188 1z"></path><path fill="currentColor" d="M5.188 0H0v11.193l6.467-8.625C7.526 1.156 6.958 0 5.188 0z"></path></svg></span> -->
-                    <div class="chat-text" [style]="item.content ? 'padding-bottom: 0;': ''">
-                        <div class="text-message">{{ item?.content}} <div class="chat-time">{{ item?.timestamp | dateFormat: 'hh:mm A' }}</div></div>
+                    <div class="chat-text">
+                        <div class="text-message">
+                            <div>{{ item?.content}} </div>
+                            <div class="chat-time">{{ item?.timestamp | dateFormat: 'hh:mm A' }}</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -23,6 +26,7 @@
                 <a (click)="redirectTo('https://github.com/frustrated-developer/')" class="social-link"><i class="fab fa-github"></i></a>
                 <a (click)="redirectTo('https://www.linkedin.com/in/kishan-panchal-859417162/')" class="social-link"><i class="fab fa-linkedin"></i></a>
             </mat-list>
+            <p><a href="https://coderman-401.web.app/demos" target="_blank">Visit here fore more.</a></p>
         </mat-card>
     </div>
     <button *ngIf="showFab"  (click)="scrollToBottom()" class="fab-down" mat-mini-fab color="light" aria-label="Example icon button with a menu icon">

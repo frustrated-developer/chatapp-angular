@@ -1,7 +1,8 @@
-import { LocalStorageService } from './../services/local-storage.service';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { Component, OnInit } from '@angular/core';
-import { FirebaseService } from '../services/firebase.service';
+import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
+
+import { FirebaseService } from './services/firebase.service';
+import { LocalStorageService } from '../shared/services/local-storage.service';
 import * as moment from 'moment';
 
 @Component({
@@ -9,7 +10,7 @@ import * as moment from 'moment';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss']
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, OnDestroy {
 
     // var
     currentuserData: any = [];
@@ -23,7 +24,7 @@ export class ChatComponent implements OnInit {
     constructor(
         private firebaseService: FirebaseService,
         private db: AngularFireDatabase,
-        private localStorageService: LocalStorageService
+        private localStorageService: LocalStorageService,
     ) {
     }
 
@@ -34,16 +35,23 @@ export class ChatComponent implements OnInit {
 
 
     getContactList() {
+        this.updateUserStatus();
         this.firebaseService.getUserList().subscribe((response) => {
             this.contactList = response.filter((s: any) => s.username !== this.currentuserData.username);
         });
     }
 
+    updateUserStatus() {
+        this.firebaseService.updateOnlineStatus(this.currentuserData.docId, 'online');
+    }
+
     getUserChat(event) {
         this.reciever = event;
         this.isFooter = true;
-        this.chatId = this.getChatId(event.username);
-        const list = this.db.list<any>(`messages/${this.chatId}`).valueChanges();
+        console.log(event);
+        this.chatId = this.getChatId(event.docId);
+        console.log(this.chatId);
+        const list = this.db.list<any>(`${this.chatId}/messages`).valueChanges();
         list.subscribe((response: any) => {
             this.messages = response;
             this.messages = response.map((s: any) => ({ ...s,
@@ -56,8 +64,8 @@ export class ChatComponent implements OnInit {
     sendMessage(event: any) {
         const date = new Date();
         const message = {
-            senderId: this.currentuserData.username,
-            reciverId: this.reciever.username,
+            senderId: this.currentuserData.docId,
+            reciverId: this.reciever.docId,
             content: event,
             timestamp: date.getTime(),
         };
@@ -66,10 +74,10 @@ export class ChatComponent implements OnInit {
 
     getChatId(recieverId) {
         let chatId = '';
-        if (this.currentuserData.username <= recieverId) {
-            chatId = `${this.currentuserData.username}-${recieverId}`;
+        if (this.currentuserData.docId <= recieverId) {
+            chatId = `${this.currentuserData.docId}-${recieverId}`;
         } else {
-            chatId = `${recieverId}-${this.currentuserData.username}`;
+            chatId = `${recieverId}-${this.currentuserData.docId}`;
         }
         return chatId;
     }
@@ -101,5 +109,9 @@ export class ChatComponent implements OnInit {
             }
         });
         return map;
+    }
+
+    ngOnDestroy(): void {
+        this.firebaseService.updateOnlineStatus(this.currentuserData.docId, 'offline');
     }
 }

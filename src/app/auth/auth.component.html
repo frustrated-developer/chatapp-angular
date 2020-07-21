@@ -18,7 +18,10 @@
                     <input matInput placeholder="Password" type="password" formControlName="password"/>
                     <mat-error>Password is required</mat-error>
                 </mat-form-field>
-                <button color="primary" mat-raised-button>Login</button>
+                <button mat-raised-button [disabled]="isProgress" color="primary">
+                    <mat-icon *ngIf="isProgress"><mat-spinner diameter="24" color="primary"></mat-spinner></mat-icon>
+                    Login
+                </button>
             </form>
         </mat-card-content>
         <mat-card-actions>
@@ -56,7 +59,10 @@
                     <input matInput placeholder="Password" type="password" formControlName="password"/>
                     <mat-error>Password is required</mat-error>
                 </mat-form-field>
-                <button color="primary" mat-raised-button>Signup</button>
+                <button mat-raised-button [disabled]="isProgress" color="primary">
+                    <mat-icon *ngIf="isProgress" ><mat-spinner diameter="24" color="primary"></mat-spinner></mat-icon>
+                    Signup
+                </button>
             </form>
         </mat-card-content>
         <mat-card-actions>

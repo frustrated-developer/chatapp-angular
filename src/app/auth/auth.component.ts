@@ -1,8 +1,8 @@
-import { LocalStorageService } from './../services/local-storage.service';
 import { AuthService } from './services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LocalStorageService } from '../shared/services/local-storage.service';
 
 @Component({
   selector: 'app-auth',
@@ -16,6 +16,7 @@ export class AuthComponent implements OnInit {
     submitted = false;
     loginForm: FormGroup;
     signupForm: FormGroup;
+    isProgress = false;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -25,6 +26,7 @@ export class AuthComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
+        this.checkIsLogin();
         this.setLoginFormControl();
         this.setSignupFormControl();
     }
@@ -37,7 +39,7 @@ export class AuthComponent implements OnInit {
 
     setLoginFormControl() {
         this.loginForm = this.formBuilder.group({
-            username: ['', [Validators.required, Validators.maxLength(6)]],
+            username: ['', [Validators.required, Validators.maxLength(8)]],
             password: ['', [Validators.required]],
         });
     }
@@ -45,7 +47,7 @@ export class AuthComponent implements OnInit {
         this.signupForm = this.formBuilder.group({
             firstname: ['', [Validators.required]],
             lastname: ['', []],
-            username: ['', [Validators.required, Validators.maxLength(6)]],
+            username: ['', [Validators.required, Validators.maxLength(8)]],
             password: ['', [Validators.required]],
         });
     }
@@ -53,17 +55,13 @@ export class AuthComponent implements OnInit {
 
     login() {
         if (this.loginForm.valid) {
+            this.isProgress = true;
             this.authService.login(this.loginForm.value).subscribe((result: any) => {
-                if (result[0].status) {
-                    if (result[0].data.password === btoa(this.loginForm.value.password)) {
-                        this.localStorageService.setItem('token', btoa(result[0].data.username));
-                        this.localStorageService.setItem('user', result[0].data);
-                        this.router.navigate(['chat']);
-                    } else {
-                        alert('Your password is incorrect');
-                    }
+                this.isProgress = false;
+                if (result.size === 0) {
+                    alert('User Does not exists.');
                 } else {
-                    alert('User Does not exists');
+                    this.processLogin(result);
                 }
             });
         }
@@ -71,20 +69,48 @@ export class AuthComponent implements OnInit {
 
     signup() {
         if (this.signupForm.valid) {
+            this.isProgress = true;
             this.signupForm.value.password = btoa(this.signupForm.value.password);
-            this.authService.singup(this.signupForm.value).then((snapshot: any) => {
-                if (snapshot.exists()) {
-                    alert ('username is taken');
+            this.authService.singup(this.signupForm.value).subscribe((response) => {
+                this.isProgress = false;
+                if (response.size === 0) {
+                    this.addNewUser();
                 } else {
-                    this.authService.insertUser(this.signupForm.value).then((result) => {
-                        alert('success');
-                        this.isLogin = true;
-                    }).catch((err) => {
-                        alert('there mihgt be some error');
-                    });
+                   this.processSignup(response);
                 }
             });
         }
+    }
+
+
+    processLogin(result) {
+        result.forEach(doc => {
+            this.isProgress = false;
+            if (doc.exists) {
+                const data: any = doc.data();
+                data.docId = doc.id;
+                if (data.password === btoa(this.loginForm.value.password)) {
+                    this.localStorageService.setItem('token', btoa(doc.id));
+                    this.localStorageService.setItem('user', data);
+                    this.router.navigate(['chat']);
+                } else {
+                    alert('Your password is incorrect');
+                }
+            } else {
+                alert('User Does not exists');
+            }
+        });
+    }
+
+    processSignup(response) {
+        response.forEach(doc => {
+            this.isProgress = false;
+            if (doc.exists) {
+                alert ('username is taken');
+            } else {
+                this.addNewUser();
+            }
+        });
     }
 
     toggleLogin() {
@@ -99,6 +125,21 @@ export class AuthComponent implements OnInit {
     }
 
 
+    addNewUser() {
+        this.authService.insertUser(this.signupForm.value).then((result) => {
+            alert('success');
+            this.isLogin = true;
+        }).catch((err) => {
+            alert('there mihgt be some error');
+        });
+    }
 
+
+    checkIsLogin() {
+        const token = this.localStorageService.getItem('token');
+        if (token !== null) {
+            this.router.navigate(['chat']);
+        }
+    }
 
 }

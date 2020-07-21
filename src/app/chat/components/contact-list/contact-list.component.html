@@ -1,0 +1,35 @@
+<mat-list>
+    <mat-list-item>
+        <h2 matLine>{{ currentUser.firstname }} ({{currentUser?.username}})</h2>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu" xPosition="before">
+                <button mat-menu-item (click)="logout()">
+                    <mat-icon>exit_to_app</mat-icon>
+                    <span>Logout</span>
+                </button>
+          </mat-menu>
+        <mat-divider></mat-divider>
+    </mat-list-item>
+</mat-list>
+<mat-divider></mat-divider>
+<p>Contact List</p>
+<mat-divider></mat-divider>
+<mat-list>
+    <mat-list-item *ngFor="let contact of list" (click)="getUserChat(contact)">
+        <div class="image-container user-dp">
+            <img src="assets/images/coder-logo_1.jpg" />
+            <!-- <span
+              class="circle"
+              [ngClass]="contact.status === 'online' ? 'on' : 'off'"
+            ></span> -->
+        </div>
+        <h2 matLine>{{ contact.firstname }} ({{contact?.username}})</h2>
+        <mat-divider></mat-divider>
+    </mat-list-item>
+    <p *ngIf="list?.length === 0" >
+        No User in database....invite your friends to chat.
+        <mat-divider></mat-divider>
+    </p>
+</mat-list>

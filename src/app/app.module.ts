@@ -21,7 +21,8 @@ import { environment } from 'src/environments/environment';
         FlexLayoutModule,
         AngularFireModule.initializeApp(environment.firebaseConfig),
         AngularFirestoreModule,
-        AngularFireDatabaseModule
+        AngularFireDatabaseModule,
+        AngularFirestoreModule
     ],
     providers: [],
     bootstrap: [AppComponent]
