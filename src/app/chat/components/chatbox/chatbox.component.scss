@@ -39,12 +39,10 @@
             transform: scaleX(1);
             color: #dcf8c6;
         }
-        .chat-item {
-            max-width: calc(100% - 3.75rem);
-        }
         .chat-text {
             background: #dcf8c6;
             border-top-right-radius: 0;
+            border-top-left-radius: 0.25rem;
         }
     }
     .user-dp {

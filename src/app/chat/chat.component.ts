@@ -48,9 +48,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     getUserChat(event) {
         this.reciever = event;
         this.isFooter = true;
-        console.log(event);
         this.chatId = this.getChatId(event.docId);
-        console.log(this.chatId);
         const list = this.db.list<any>(`${this.chatId}/messages`).valueChanges();
         list.subscribe((response: any) => {
             this.messages = response;

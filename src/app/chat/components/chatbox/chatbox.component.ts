@@ -46,6 +46,7 @@ export class ChatboxComponent implements OnInit, OnChanges {
     }
 
     scrollToBottom() {
+        this.showFab = false;
         this.chatWrapper.nativeElement.scrollTop = this.chatWrapper.nativeElement.scrollHeight;
         this.scrollPosition = this.chatWrapper.nativeElement.scrollTop;
     }

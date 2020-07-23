@@ -27,7 +27,6 @@ export class FirebaseService {
     }
 
     updateOnlineStatus(docId: string, status: string) {
-        console.log('status:::', status);
         return this.afs.collection('users').doc(docId).update({status});
     }
 }
