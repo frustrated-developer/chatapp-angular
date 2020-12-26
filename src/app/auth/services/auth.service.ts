@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Injectable } from '@angular/core';
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { LocalStorageService } from './../../shared/services/local-storage.service';
 
 @Injectable({
     providedIn: 'root'

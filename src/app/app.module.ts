@@ -8,7 +8,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { environment } from 'src/environments/environment';
+import { environment } from './../environments/environment';
 
 @NgModule({
     declarations: [

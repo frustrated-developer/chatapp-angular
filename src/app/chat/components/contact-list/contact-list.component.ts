@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { AuthService } from 'src/app/auth/services/auth.service';
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { AuthService } from './../../../auth/services/auth.service';
+import { LocalStorageService } from './../../../shared/services/local-storage.service';
 
 @Component({
   selector: 'app-contact-list',
